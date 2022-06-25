@@ -27,7 +27,7 @@ func showData(postID int) (*ShowResponse, error) {
 		err := json.NewDecoder(resp.Body).Decode(&srvrResp)
 
 		if err != nil {
-			log.Println("Error while decoding struct %v", err)
+			log.Println("Error while decoding struct ", err)
 			return nil, errors.New("can't unmarshal response into struct")
 		}
 
