@@ -1,19 +1,29 @@
 package jsonAPI
 
 import (
-	"encoding/json"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
+	"github.com/shubhvish4495/apiDevInGo/pkg/helper"
 )
 
+var defaultPostID = 2
+
+//ShowHandler returns the showData
 func ShowHandler(rw http.ResponseWriter, r *http.Request) {
+	var postID int
 
-	err, resp := showData(2)
+	if postVar, err := strconv.Atoi(mux.Vars(r)["postId"]); err == nil {
+		postID = postVar
+	} else {
+		postID = defaultPostID
+	}
 
+	resp, err := showData(postID)
 	if err != nil {
 		rw.Write([]byte(err.Error()))
 	}
 
-	json.NewEncoder(rw).Encode(resp)
-
-	// rw.Write([]byte("Hello World!"))
+	helper.ReturnJSONResponse(rw, resp)
 }

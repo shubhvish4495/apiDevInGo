@@ -13,7 +13,7 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", jsonAPI.ShowHandler)
+	r.HandleFunc("/posts/{postId}", jsonAPI.ShowHandler)
 
 	srv := &http.Server{
 		Handler: r,

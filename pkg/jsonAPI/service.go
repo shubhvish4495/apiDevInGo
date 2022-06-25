@@ -6,22 +6,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/shubhvish4495/apiDevInGo/pkg/service"
 )
 
-func showData(postID int) (error, ShowResponse) {
+func showData(postID int) (*ShowResponse, error) {
 
 	srvrResp := ShowResponse{}
 
-	req, err :=
-		http.NewRequest(http.MethodGet, fmt.Sprintf("https://jsonplaceholder.typicode.com/posts/%d", postID), nil)
-	if err != nil {
-		return err, srvrResp
-	}
+	resp, err := service.DoGetRequest(fmt.Sprintf("https://jsonplaceholder.typicode.com/posts/%d", postID))
 
-	client := http.Client{}
-	resp, err := client.Do(req)
 	if err != nil {
-		return err, srvrResp
+		log.Println(err)
+		return nil, err
 	}
 
 	switch resp.StatusCode {
@@ -31,15 +28,15 @@ func showData(postID int) (error, ShowResponse) {
 
 		if err != nil {
 			log.Println("Error while decoding struct %v", err)
-			return errors.New("can't unmarshal response into struct"), srvrResp
+			return nil, errors.New("can't unmarshal response into struct")
 		}
 
 	case http.StatusNotFound:
-		return errors.New("requested resource not found"), srvrResp
+		return nil, errors.New("requested resource not found")
 
 	default:
-		return errors.New("internal server error"), srvrResp
+		return nil, errors.New("internal server error")
 	}
 
-	return nil, srvrResp
+	return &srvrResp, nil
 }
