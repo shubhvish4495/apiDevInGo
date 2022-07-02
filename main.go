@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+
 	"github.com/shubhvish4495/apiDevInGo/pkg/jsonAPI"
 )
 
@@ -13,7 +14,8 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/posts/{postId}", jsonAPI.ShowHandler)
+	r.HandleFunc("/posts/{postId}", jsonAPI.ShowPostHandler)
+	r.HandleFunc("/users/{userID}", jsonAPI.UserDataHandler)
 
 	srv := &http.Server{
 		Handler: r,
@@ -25,4 +27,5 @@ func main() {
 
 	log.Printf("Listening on 4444")
 	log.Fatal(srv.ListenAndServe())
+
 }
