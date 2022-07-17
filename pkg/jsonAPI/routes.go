@@ -6,6 +6,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 func RegisterRoutes(router *mux.Router) {
 
 	router.

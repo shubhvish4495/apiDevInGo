@@ -24,7 +24,7 @@ func main() {
 	//initialize server
 	srv := &http.Server{
 		Handler: r,
-		Addr:    "127.0.0.1:4444",
+		Addr:    ":4444",
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
