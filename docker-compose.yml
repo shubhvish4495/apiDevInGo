@@ -1,8 +1,8 @@
-version: '3'
-
+version: "3.9"
 services:
-  "go-server":
-    build: .
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
     ports:
-      - "4444:4444"
-
+      - "4444:4444"   

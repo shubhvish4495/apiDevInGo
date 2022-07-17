@@ -11,6 +11,4 @@ COPY ./ ./
 
 RUN go build -o /docker-go-api
 
-EXPOSE 4444
-
 CMD ["/docker-go-api"]
