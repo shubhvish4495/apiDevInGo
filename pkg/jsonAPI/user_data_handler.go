@@ -71,7 +71,6 @@ func UserDataHandler(rw http.ResponseWriter, r *http.Request) {
 	//create a channel to store data
 	commChan := make(chan *Comment)
 	var wg sync.WaitGroup
-	var mutex sync.Mutex
 
 	for _, commentID := range relatedCommentIDList {
 		wg.Add(1)
@@ -93,9 +92,7 @@ func UserDataHandler(rw http.ResponseWriter, r *http.Request) {
 	}()
 
 	for data := range commChan {
-		mutex.Lock()
 		channelOutComments = append(channelOutComments, *data)
-		mutex.Unlock()
 	}
 
 	helper.ReturnJSONResponse(rw, channelOutComments)

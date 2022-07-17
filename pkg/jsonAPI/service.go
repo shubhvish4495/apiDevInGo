@@ -23,9 +23,10 @@ func getUserData(userID int) (*User, error) {
 		return nil, err
 	}
 
+	defer resp.Body.Close()
+
 	switch resp.StatusCode {
 	case http.StatusOK:
-
 		err := json.NewDecoder(resp.Body).Decode(&srvrResp)
 
 		if err != nil {
@@ -53,6 +54,8 @@ func listPosts() ([]Post, error) {
 		log.Println(err)
 		return nil, err
 	}
+
+	defer resp.Body.Close()
 
 	switch resp.StatusCode {
 	case http.StatusOK:
@@ -85,6 +88,8 @@ func getComment(commentID int) (*Comment, error) {
 		return nil, err
 	}
 
+	defer resp.Body.Close()
+
 	switch resp.StatusCode {
 	case http.StatusOK:
 
@@ -116,6 +121,8 @@ func listComments() ([]Comment, error) {
 		return nil, err
 	}
 
+	defer resp.Body.Close()
+
 	switch resp.StatusCode {
 	case http.StatusOK:
 
@@ -146,6 +153,8 @@ func showPost(postID int) (*Post, error) {
 		log.Println(err)
 		return nil, err
 	}
+
+	defer resp.Body.Close()
 
 	switch resp.StatusCode {
 	case http.StatusOK:

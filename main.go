@@ -8,15 +8,20 @@ import (
 	"github.com/gorilla/mux"
 
 	"github.com/shubhvish4495/apiDevInGo/pkg/jsonAPI"
+	"github.com/shubhvish4495/apiDevInGo/pkg/middleware"
 )
 
 func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/posts/{postId}", jsonAPI.ShowPostHandler)
-	r.HandleFunc("/users/{userID}", jsonAPI.UserDataHandler)
+	//setup logger middleware
+	r.Use(middleware.LogRequest)
 
+	//register routes
+	jsonAPI.RegisterRoutes(r)
+
+	//initialize server
 	srv := &http.Server{
 		Handler: r,
 		Addr:    "127.0.0.1:4444",
