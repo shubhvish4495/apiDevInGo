@@ -1,9 +1,21 @@
 package jsonAPI
 
-import "github.com/gorilla/mux"
+import (
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
 
 func RegisterRoutes(router *mux.Router) {
 
-	router.HandleFunc("/posts/{postId}", ShowPostHandler)
-	router.HandleFunc("/users/{userID}", UserDataHandler)
+	router.
+		Path("/posts/{postID}").
+		Methods(http.MethodGet).
+		HandlerFunc(ShowPostHandler)
+
+	router.
+		Path("/users/{userID}").
+		Methods(http.MethodGet).
+		HandlerFunc(UserDataHandler)
+
 }
