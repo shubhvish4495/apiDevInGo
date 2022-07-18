@@ -13,6 +13,9 @@ var defaultPostID = 2
 
 //ShowPostHandler returns the showData
 func ShowPostHandler(rw http.ResponseWriter, r *http.Request) {
+
+	enableCors(&rw)
+
 	var postID int
 
 	if postVar, err := strconv.Atoi(mux.Vars(r)["postId"]); err == nil {

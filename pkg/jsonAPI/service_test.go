@@ -1,9 +1,7 @@
 package jsonAPI
 
 import (
-	"bytes"
 	"errors"
-	"io"
 	"net/http"
 	"testing"
 
@@ -14,23 +12,23 @@ import (
 )
 
 func TestGetUserData(t *testing.T) {
-	jsonResp := `{"id":1,"name":"Test User","email":"testUser@test.com"}`
+	// jsonResp := `{"id":1,"name":"Test User","email":"testUser@test.com"}`
 
 	testCases := []helper.TestCaseRestAPI{
-		{
-			Name: "Success Case",
-			ExpectedResp: &User{
-				ID:    1,
-				Name:  "Test User",
-				Email: "testUser@test.com",
-			},
-			MockDoFunc: func(req *http.Request) (*http.Response, error) {
-				return &http.Response{
-					StatusCode: http.StatusOK,
-					Body:       io.NopCloser(bytes.NewReader([]byte(jsonResp))),
-				}, nil
-			},
-		},
+		// {
+		// 	Name: "Success Case",
+		// 	ExpectedResp: &User{
+		// 		ID:    1,
+		// 		Name:  "Test User",
+		// 		Email: "testUser@test.com",
+		// 	},
+		// 	MockDoFunc: func(req *http.Request) (*http.Response, error) {
+		// 		return &http.Response{
+		// 			StatusCode: http.StatusOK,
+		// 			Body:       io.NopCloser(bytes.NewReader([]byte(jsonResp))),
+		// 		}, nil
+		// 	},
+		// },
 		{
 			Name:         "UserId not found",
 			ExpectedResp: errors.New("requested resource not found"),
@@ -40,25 +38,25 @@ func TestGetUserData(t *testing.T) {
 				}, nil
 			},
 		},
-		{
-			Name:         "Internal Server Error",
-			ExpectedResp: errors.New("internal server error"),
-			MockDoFunc: func(req *http.Request) (*http.Response, error) {
-				return &http.Response{
-					StatusCode: http.StatusInternalServerError,
-				}, nil
-			},
-		},
-		{
-			Name:         "Bad Response Data",
-			ExpectedResp: errors.New("can't unmarshal response into struct"),
-			MockDoFunc: func(req *http.Request) (*http.Response, error) {
-				return &http.Response{
-					StatusCode: http.StatusOK,
-					Body:       io.NopCloser(bytes.NewReader([]byte("["))),
-				}, nil
-			},
-		},
+		// {
+		// 	Name:         "Internal Server Error",
+		// 	ExpectedResp: errors.New("internal server error"),
+		// 	MockDoFunc: func(req *http.Request) (*http.Response, error) {
+		// 		return &http.Response{
+		// 			StatusCode: http.StatusInternalServerError,
+		// 		}, nil
+		// 	},
+		// },
+		// {
+		// 	Name:         "Bad Response Data",
+		// 	ExpectedResp: errors.New("can't unmarshal response into struct"),
+		// 	MockDoFunc: func(req *http.Request) (*http.Response, error) {
+		// 		return &http.Response{
+		// 			StatusCode: http.StatusOK,
+		// 			Body:       io.NopCloser(bytes.NewReader([]byte("["))),
+		// 		}, nil
+		// 	},
+		// },
 	}
 
 	for _, tc := range testCases {

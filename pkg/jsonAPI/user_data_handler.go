@@ -16,6 +16,8 @@ import (
 //and all his comments
 func UserDataHandler(rw http.ResponseWriter, r *http.Request) {
 
+	enableCors(&rw)
+
 	userID, _ := strconv.Atoi(mux.Vars(r)["userID"])
 	var userDataResp UserData
 
