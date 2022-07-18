@@ -23,10 +23,10 @@ func getUserData(userID int) (*User, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
-
 	switch resp.StatusCode {
 	case http.StatusOK:
+
+		defer resp.Body.Close()
 		err := json.NewDecoder(resp.Body).Decode(&srvrResp)
 
 		if err != nil {
@@ -55,11 +55,10 @@ func listPosts() ([]Post, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
-
 	switch resp.StatusCode {
 	case http.StatusOK:
 
+		defer resp.Body.Close()
 		err := json.NewDecoder(resp.Body).Decode(&srvrResp)
 
 		if err != nil {
@@ -88,11 +87,10 @@ func getComment(commentID int) (*Comment, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
-
 	switch resp.StatusCode {
 	case http.StatusOK:
 
+		defer resp.Body.Close()
 		err := json.NewDecoder(resp.Body).Decode(&srvrResp)
 
 		if err != nil {
@@ -121,11 +119,10 @@ func listComments() ([]Comment, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
-
 	switch resp.StatusCode {
 	case http.StatusOK:
 
+		defer resp.Body.Close()
 		err := json.NewDecoder(resp.Body).Decode(&srvrResp)
 
 		if err != nil {
@@ -154,11 +151,10 @@ func showPost(postID int) (*Post, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
-
 	switch resp.StatusCode {
 	case http.StatusOK:
 
+		defer resp.Body.Close()
 		err := json.NewDecoder(resp.Body).Decode(&srvrResp)
 
 		if err != nil {
